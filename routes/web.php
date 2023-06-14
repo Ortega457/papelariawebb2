@@ -26,6 +26,7 @@ Route::get('/', [PapelariaController::class, 'index'])->name('papelaria.index');
 Route::get('/sobre', [PapelariaController::class, 'sobre'])->name('papelaria.sobre');
 Route::get('/contato', [PapelariaController::class, 'contato'])->name('papelaria.contato');
 Route::get('/mensagens', [PapelariaController::class, 'mensagens'])->name('papelaria.mensagens');
+Route::get('/avaliacoes', [PapelariaController::class, 'avaliacoes'])->name('papelaria.avaliacoes');
 Route::post('/contato/store', [PapelariaController::class, 'store'])->name('papelaria.store');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/papelaria/login', [PapelariaController::class, 'login'])->name('papelaria.login');
@@ -55,3 +56,4 @@ Route::get('/pedidos/pedidos', [PedidoController::class, 'pedidos'])->name('pedi
 Route::get('/pedidos/{pedido}/edit',  [PedidoController::class, 'edit'])->name('pedidos.edit');
 Route::put('/pedidos/{pedido}', [PedidoController::class, 'update'])->name('pedidos.update');
 Route::delete('/pedidos/{pedido}', [PedidoController::class, 'destroy'])->name('pedidos.destroy');
+

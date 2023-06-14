@@ -9,9 +9,25 @@ use Illuminate\Http\Request;
 
 class PapelariaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produtos = Produto::all();
+        $query = Produto::query();
+
+        // Aplicar filtro de pesquisa
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nome', 'like', "%$search%")
+                ->orWhere('descricao', 'like', "%$search%");
+        }
+
+        // Ordenar por valor (do mais baixo para o mais alto ou vice-versa)
+        if ($request->has('sort')) {
+            $sort = $request->input('sort');
+            $query->orderBy('valor', $sort);
+        }
+
+        $produtos = $query->paginate(12); // Defina o número desejado de produtos por página
+
         $categorias = Categoria::all();
         return view('papelaria.index', compact('produtos', 'categorias'));
     }
@@ -29,6 +45,11 @@ class PapelariaController extends Controller
     public function contato()
     {
         return view('papelaria.contato');
+    }
+
+    public function avaliacoes()
+    {
+        return view('papelaria.avaliacoes');
     }
 
     public function mensagens()
@@ -57,4 +78,7 @@ class PapelariaController extends Controller
 
         return view('papelaria.index', compact('produtos'));
     }
+    
 }
+
+
